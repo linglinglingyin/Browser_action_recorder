@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>鼠标录制回放</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hd">
+      <div class="brand">
+        <span class="logo"></span>
+        <div class="brand-txt">
+          <h1>鼠标录制回放</h1>
+          <p id="status" class="status">就绪</p>
+        </div>
+      </div>
+      <button id="btn-record" class="btn-rec" type="button">
+        <span class="rec-dot"></span>
+        <span id="rec-label">录制</span>
+      </button>
+    </header>
+
+    <section class="settings">
+      <label class="field">
+        <span class="label">速度</span>
+        <select id="speed">
+          <option value="0.5">0.5×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+          <option value="3">3×</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="label">循环</span>
+        <input id="loops" type="number" min="1" max="99" value="1" />
+      </label>
+      <label class="field check">
+        <input id="keys" type="checkbox" checked />
+        <span>键盘输入</span>
+      </label>
+    </section>
+
+    <div id="progress" class="progress hidden">
+      <div class="bar"><i id="bar-fill"></i></div>
+      <span id="progress-text">0%</span>
+    </div>
+
+    <section class="list-wrap">
+      <div class="list-hd">
+        <span>录制记录 <b id="count">0</b></span>
+        <div class="list-actions">
+          <button id="btn-import" class="link" type="button">导入</button>
+          <button id="btn-clear" class="link danger" type="button">清空</button>
+        </div>
+      </div>
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty">还没有录制。<br />点击右上角「录制」，在页面上操作，按 Esc 或悬浮条上的按钮结束。</p>
+    </section>
+
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <input id="file" type="file" accept="application/json,.json" hidden />
+  <script src="popup.js"></script>
+</body>
+</html>

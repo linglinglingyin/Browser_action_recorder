@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>MRR Test Page</title>
+<style>
+  html, body { margin: 0; padding: 0; font: 14px/1.4 sans-serif; }
+  #btn { position: absolute; left: 60px; top: 60px; width: 160px; height: 44px; }
+  #text { position: absolute; left: 60px; top: 130px; width: 260px; height: 32px; }
+  #box { position: absolute; left: 60px; top: 190px; width: 320px; height: 180px; overflow: auto; border: 1px solid #999; }
+  #box .inner { height: 1500px; background: linear-gradient(#fff, #bbb); }
+  #tall { position: absolute; left: 500px; top: 0; width: 400px; height: 4000px; background: #fafafa; }
+</style>
+</head>
+<body>
+  <button id="btn">点我</button>
+  <input id="text" placeholder="type here" />
+  <div id="box"><div class="inner"></div></div>
+  <div id="tall"></div>
+  <script>
+    window.__log = [];
+    window.__clicks = 0;
+    ['mousedown', 'mouseup', 'click', 'dblclick', 'contextmenu', 'wheel', 'keydown', 'input', 'mousemove'].forEach(function (t) {
+      window.addEventListener(t, function (e) {
+        if (t === 'mousemove') { window.__moves = (window.__moves || 0) + 1; return; }
+        window.__log.push({
+          type: t,
+          target: (e.target && (e.target.id || e.target.tagName)) || '?',
+          x: Math.round(e.clientX || 0),
+          y: Math.round(e.clientY || 0)
+        });
+      }, true);
+    });
+    document.getElementById('btn').addEventListener('click', function () {
+      window.__clicks += 1;
+      this.textContent = '已点击 ' + window.__clicks;
+    });
+    window.addEventListener('scroll', function () { window.__scrollY = window.scrollY; });
+  </script>
+</body>
+</html>
